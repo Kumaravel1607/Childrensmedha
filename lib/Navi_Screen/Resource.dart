@@ -39,19 +39,19 @@ final List<Course> ResourceData = [
   Course(
       topic: '6th Grade(SAINIK/RMS/RIMS)',
       name: 'Natural Numbers',
-      video: 'video',
+      video: 'Video',
       practice_test: 'practice_test',
       study_material: 'study_material'),
   Course(
       topic: '9th Grade(SAINIK/RMS/RIMS)',
       name: '	LCM and HCF',
-      video: 'video',
+      video: 'Video',
       practice_test: 'practice_test',
       study_material: 'study_material'),
   Course(
       topic: 'Academic Skills',
       name: 'Unitary Method',
-      video: 'video',
+      video: 'Video',
       practice_test: 'practice_test',
       study_material: 'study_material'),
 ];
@@ -62,27 +62,27 @@ List<Map<String, dynamic>> data = [
     'subtitle': [
       {
         'Subject': 'Mathematics',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
       {
         'Subject': 'Reasoning',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
       {
         'Subject': 'English',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
       {
         'Subject': 'Science',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
     ]
   },
@@ -91,33 +91,33 @@ List<Map<String, dynamic>> data = [
     'subtitle': [
       {
         'Subject': 'Mathematics',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
       {
         'Subject': 'Reasoning',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
       {
         'Subject': 'English',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
       {
         'Subject': 'Science',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
       {
         'Subject': 'SocialScience',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
     ]
   },
@@ -126,21 +126,21 @@ List<Map<String, dynamic>> data = [
     'subtitle': [
       {
         'Subject': 'Mathematics',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
       {
         'Subject': 'Reasoning',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
       {
         'Subject': 'English',
-        "video": 'video',
-        "practice_test": 'practice_test',
-        "study_material": 'study_material'
+        "video": 'Video',
+        "practice_test": 'Practice_test',
+        "study_material": 'Study_material'
       },
     ]
   },
