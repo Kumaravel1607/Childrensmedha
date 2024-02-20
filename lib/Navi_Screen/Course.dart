@@ -1,5 +1,6 @@
 import 'package:cmedha/screens/Constant/color.dart';
 import 'package:cmedha/screens/Courses/CourseDetail.dart';
+import 'package:cmedha/screens/Payment/purchaseDetail.dart';
 import 'package:cmedha/screens/widget.dart';
 import 'package:flutter/material.dart';
 
@@ -130,13 +131,14 @@ class _CourseScreenState extends State<CourseScreen> {
                       backgroundColor: Blue,
                       minimumSize: const Size.fromHeight(44),
                     ),
-                    onPressed: () {},
-                    // onPressed: () {
-                    //   Navigator.of(context, rootNavigator: true)
-                    //       .push(MaterialPageRoute(builder: (context) => Confirm()));
-                    //   //   Navigator.of(context).push(MaterialPageRoute(
-                    //   //       builder: (context) => Navigation()));
-                    // },
+                    // onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (context) => PurchaseDetail()));
+                      //   //   Navigator.of(context).push(MaterialPageRoute(
+                      //   //       builder: (context) => Navigation()));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -254,13 +256,14 @@ class _CourseScreenState extends State<CourseScreen> {
                       backgroundColor: Blue,
                       minimumSize: const Size.fromHeight(44),
                     ),
-                    onPressed: () {},
-                    // onPressed: () {
-                    //   Navigator.of(context, rootNavigator: true)
-                    //       .push(MaterialPageRoute(builder: (context) => Confirm()));
-                    //   //   Navigator.of(context).push(MaterialPageRoute(
-                    //   //       builder: (context) => Navigation()));
-                    // },
+                    // onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (context) => PurchaseDetail()));
+                      //   Navigator.of(context).push(MaterialPageRoute(
+                      //       builder: (context) => Navigation()));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -333,13 +336,14 @@ class _CourseScreenState extends State<CourseScreen> {
                       backgroundColor: Blue,
                       minimumSize: const Size.fromHeight(44),
                     ),
-                    onPressed: () {},
-                    // onPressed: () {
-                    //   Navigator.of(context, rootNavigator: true)
-                    //       .push(MaterialPageRoute(builder: (context) => Confirm()));
-                    //   //   Navigator.of(context).push(MaterialPageRoute(
-                    //   //       builder: (context) => Navigation()));
-                    // },
+                    // onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (context) => PurchaseDetail()));
+                      //   Navigator.of(context).push(MaterialPageRoute(
+                      //       builder: (context) => Navigation()));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
