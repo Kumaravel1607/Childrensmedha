@@ -1,3 +1,4 @@
+import 'package:cmedha/Resource_Screen/Video.dart';
 import 'package:cmedha/screens/Constant/color.dart';
 import 'package:cmedha/screens/widget.dart';
 import 'package:flutter/material.dart';
@@ -214,17 +215,26 @@ class _ResourceScreenState extends State<ResourceScreen> {
                                         color: black),
                                   ),
                                   children: [
-                                    Container(
-                                      height: 45,
-                                      width: double.infinity,
-                                      child: Card(
-                                        elevation: 4,
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: text20(
-                                              video.toString(),
-                                              //
-                                              black),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ResourceVideo()));
+                                      },
+                                      child: Container(
+                                        height: 45,
+                                        width: double.infinity,
+                                        child: Card(
+                                          elevation: 4,
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: text20(
+                                                video.toString(),
+                                                //
+                                                black),
+                                          ),
                                         ),
                                       ),
                                     ),

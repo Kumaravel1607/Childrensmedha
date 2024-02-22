@@ -13,14 +13,13 @@ class Course {
   final String name;
   final String id;
 
-  final bool isFavorite;
+  Course({
+    required this.id,
+    required this.name,
+  });
 
-  Course({required this.id, required this.name, this.isFavorite = false});
-
-  Course copyWith({String? name, bool? isFavorite}) => Course(
-      name: name ?? this.name,
-      isFavorite: isFavorite ?? this.isFavorite,
-      id: '');
+  Course copyWith({String? name, bool? isFavorite}) =>
+      Course(name: name ?? this.name, id: '');
 }
 
 final List<Course> CourseData = [
