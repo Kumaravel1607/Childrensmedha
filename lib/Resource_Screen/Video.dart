@@ -29,16 +29,16 @@ final List<Course> CourseData = [
   Course(id: '3', name: 'Unitary Method'),
   Course(id: '4', name: 'Fractions'),
   Course(id: '5', name: 'Ratio and Proportion'),
-  // Course(id: '6', name: 'Profit and Loss'),
-  // Course(id: '7', name: 'Simplification'),
-  // Course(id: '8', name: 'Average'),
-  // Course(id: '9', name: 'Percentage'),
-  // Course(id: '10', name: 'Area and Perimeter'),
-  // Course(id: '11', name: 'Simple Interest'),
-  // Course(id: '12', name: 'Lines and Angles'),
-  // Course(id: '13', name: 'Complementary and Supplementary Angles'),
-  // Course(id: '14', name: 'Conversion of Units'),
-  // Course(id: '15', name: 'Roman Numerals'),
+  Course(id: '6', name: 'Profit and Loss'),
+  Course(id: '7', name: 'Simplification'),
+  Course(id: '8', name: 'Average'),
+  Course(id: '9', name: 'Percentage'),
+  Course(id: '10', name: 'Area and Perimeter'),
+  Course(id: '11', name: 'Simple Interest'),
+  Course(id: '12', name: 'Lines and Angles'),
+  Course(id: '13', name: 'Complementary and Supplementary Angles'),
+  Course(id: '14', name: 'Conversion of Units'),
+  Course(id: '15', name: 'Roman Numerals'),
 ];
 
 class _ResourceVideoState extends State<ResourceVideo> {
@@ -125,7 +125,7 @@ class _VideoAppState extends State<VideoApp> {
   void initState() {
     super.initState();
     _videoPlayerController =
-        VideoPlayerController.asset('assets/video/nature.mp4')
+        VideoPlayerController.asset('assets/video/movie.mp4')
           ..initialize().then((_) {
             setState(() {});
             _videoPlayerController.play();
