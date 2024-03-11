@@ -1,7 +1,16 @@
+import 'dart:convert';
+
+import 'package:cmedha/Api/Api.dart';
 import 'package:cmedha/Navigation.dart';
 import 'package:cmedha/Register.dart';
 import 'package:cmedha/screens/Constant/color.dart';
+import 'package:cmedha/toast.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -252,18 +261,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   minimumSize: const Size.fromHeight(44),
                                 ),
                                 onPressed: () {
-                                  // setState(() {
-                                  //   if (formkey.currentState!.validate()) {
-                                  //     isloading = true;
-                                  //     print(isloading);
-                                  //     user();
-                                  //   }
-                                  // });
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              Navigation()),
-                                      (Route<dynamic> route) => false);
+                                  setState(() {
+                                    if (formkey.currentState!.validate()) {
+                                      isloading = true;
+                                      print(isloading);
+                                      user();
+                                    }
+                                  });
+                                  // Navigator.of(context).pushAndRemoveUntil(
+                                  //     MaterialPageRoute(
+                                  //         builder: (BuildContext context) =>
+                                  //             Navigation()),
+                                  //     (Route<dynamic> route) => false);
                                   // setState(() {
                                   //   if (formkey.currentState!.validate()) {
                                   //     isloading = true;
@@ -340,58 +349,67 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // user() async {
-  //   // String? deviceId = await _getId();
-  //   String? token = await FirebaseMessaging.instance.getToken();
-  //   // print('Deviceid :' '$deviceId');
+  user() async {
+    // String? deviceId = await _getId();
+    String? token = await FirebaseMessaging.instance.getToken();
+    // print('Deviceid :' '$deviceId');
 
-  //   print('token :' '$token');
-  //   var url = login;
-  //   var data = {"email": email.text, "password": pass.text, 'app_key': token};
-  //   print(data);
-  //   print(url);
-  //   var body = json.encode(data);
-  //   var urlparse = Uri.parse(url);
+    print('token :' '$token');
+    var url = login;
+    var data = {
+      "email": email.text, "password": pass.text,
+      //'app_key': token
+    };
+    print(data);
+    print(url);
+    var body = json.encode(data);
+    var urlparse = Uri.parse(url);
 
-  //   http.Response response = await http.post(
-  //     urlparse,
-  //     body: data,
-  //   );
-  //   var response_data = json.decode(response.body.toString());
+    http.Response response = await http.post(
+      urlparse,
+      body: data,
+    );
+    var response_data = json.decode(response.body.toString());
 
-  //   if (response.statusCode == 200) {
-  //     setState(() {
-  //       isloading = false;
-  //     });
-  //     print(isloading);
-  //     print(response_data['result']);
-  //     print(response_data['result']['user_id']);
-  //     print(response_data['result']['first_name']);
+    if (response.statusCode == 200) {
+      setState(() {
+        isloading = false;
+      });
+      print(isloading);
+      print(response_data['result']);
+      print(response_data['result']['user_id']);
+      print(response_data['result']['first_name']);
+      print(response_data['result']['phone']);
+      print(response_data['result']['last_name']);
 
-  //     print(response_data['result']['email']);
-  //     final session = await SharedPreferences.getInstance();
-  //     await session.setString('email', response_data['result']['email']);
-  //     await session.setInt('user_id', response_data['result']['user_id']);
-  //     await session.setString(
-  //         'first_name', response_data['result']['first_name']);
-  //     await session.setString('token', response_data['result']['token']);
+      print(response_data['result']['email']);
+      final session = await SharedPreferences.getInstance();
+      await session.setString('email', response_data['result']['email']);
+      await session.setInt('user_id', response_data['result']['user_id']);
+      await session.setString(
+          'first_name', response_data['result']['first_name']);
+      await session.setString(
+          'last_name', response_data['result']['last_name']);
+      await session.setString('phone', response_data['result']['phone']);
+      //await session.setString('token', response_data['result']['token']);
 
-  //     var user_name = session.getString('first_name');
+      var user_name = session.getString('first_name');
 
-  //     Navigator.of(context).pushAndRemoveUntil(
-  //         MaterialPageRoute(
-  //             builder: (BuildContext context) =>
-  //                 Navigation(name: user_name.toString())),
-  //         (Route<dynamic> route) => false);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (BuildContext context) => Navigation(
+                    name: user_name.toString(),
+                  )),
+          (Route<dynamic> route) => false);
 
-  //     print('Success');
-  //     toastInfo(mesg: response_data['message'].toString());
-  //   } else {
-  //     setState(() {
-  //       isloading = false;
-  //     });
-  //     print(isloading);
-  //     toastInfo(mesg: response_data['message'].toString());
-  //   }
-  // }
+      print('Success');
+      toastInfo(mesg: response_data['message'].toString());
+    } else {
+      setState(() {
+        isloading = false;
+      });
+      print(isloading);
+      toastInfo(mesg: response_data['message'].toString());
+    }
+  }
 }

@@ -1,7 +1,14 @@
+import 'dart:convert';
+
+import 'package:cmedha/Api/Api.dart';
 import 'package:cmedha/Login.dart';
 import 'package:cmedha/Navigation.dart';
 import 'package:cmedha/screens/Constant/color.dart';
+import 'package:cmedha/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -39,7 +46,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late String _email, _name;
   TextEditingController pass = TextEditingController();
   TextEditingController email = TextEditingController();
-  TextEditingController name = TextEditingController();
+  TextEditingController firstname = TextEditingController();
+  TextEditingController lastname = TextEditingController();
+  TextEditingController phone = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
@@ -47,9 +56,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      // resizeToAvoidBottomInset: true,
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: CustomScrollView(
+        // scrollPadding: EdgeInsets.only(bottom:40),
+        shrinkWrap: true,
+        clipBehavior: Clip.antiAlias,
+        controller: ScrollController(),
+        physics: AlwaysScrollableScrollPhysics(),
+        reverse: false,
         slivers: [
           SliverFillRemaining(
             hasScrollBody: true,
@@ -76,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ]),
           ),
           SizedBox(
-            height: 700,
+            height: 710,
             child: Stack(
               children: [
                 Container(
@@ -90,7 +106,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           topRight: Radius.circular(40),
                           topLeft: Radius.circular(40))),
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -104,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,8 +130,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onTap: () {
                                 joinchanged();
                               },
-                              child: const Text(
-                                'Email',
+                              child: Text(
+                                ' Email',
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -136,9 +153,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                         ),
                         const SizedBox(
-                          height: 6,
+                          height: 5,
                         ),
                         TextFormField(
+                          controller: joinlinkname.value ? phone : email,
                           focusNode: myFocusNode,
                           keyboardType: joinlinkname.value
                               ? TextInputType.phone
@@ -206,7 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               )),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 15,
                         ),
                         const Text(
                           'Password',
@@ -216,7 +234,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               color: Colors.black),
                         ),
                         const SizedBox(
-                          height: 6,
+                          height: 5,
                         ),
                         TextFormField(
                           validator: (String? value) {
@@ -286,30 +304,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 15,
                         ),
                         const Text(
-                          'UserName',
+                          'FirstName',
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         const SizedBox(
-                          height: 6,
+                          height: 5,
                         ),
                         TextFormField(
                           keyboardType: TextInputType.text,
                           validator: (String? value) {
                             if (value!.isEmpty) {
-                              return "Please enter name";
+                              return "Please enter Firstname";
                             }
                             return null;
                           },
                           // onSaved: (name) {
                           //   _name = name!;
                           // },
-                          controller: name,
+                          controller: firstname,
                           autocorrect: true,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -331,7 +349,73 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               filled: true,
                               fillColor: Colors.white,
-                              hintText: 'Enter username',
+                              hintText: 'Enter Firstname',
+                              hintStyle:
+                                  const TextStyle(color: grey, fontSize: 14),
+                              // border: OutlineInputBorder(
+                              //   borderRadius: BorderRadius.circular(24),
+                              //   borderSide: BorderSide(
+                              //     color: grey,
+                              //   ),
+                              // ),
+                              // prefixIcon: IconTheme(
+                              //   data: IconThemeData(
+                              //     color: secondary,
+                              //   ),
+                              //   child: Icon(Icons.email),
+                              // ),
+                              prefixIcon: const Icon(
+                                Icons.person,
+                                color: Blue,
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const Text(
+                          'LastName',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          keyboardType: TextInputType.text,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return "Please enter lastname";
+                            }
+                            return null;
+                          },
+                          // onSaved: (name) {
+                          //   _name = name!;
+                          // },
+                          controller: lastname,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      const BorderSide(color: red, width: 2)),
+                              contentPadding: const EdgeInsets.only(
+                                  left: 24, top: 14, bottom: 13),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                  color: grey,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    const BorderSide(color: Blue, width: 2),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: 'Enter lastname',
                               hintStyle:
                                   const TextStyle(color: grey, fontSize: 14),
                               // border: OutlineInputBorder(
@@ -361,22 +445,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             backgroundColor: Blue,
                             minimumSize: const Size.fromHeight(44),
                           ),
-                          // onPressed: () {
-                          //   if (formkey.currentState!.validate()) {
-                          //     // user();
-                          //   }
-                          //   // var username;
-                          //   // if (formkey.currentState!.validate()) {
-                          //   //   Navigator.of(context).push(MaterialPageRoute(
-                          //   //       builder: (context) => Navigation(
-                          //   //             name: username.toString(),
-                          //   //           )));
-                          //   // } else {}
-                          // },
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Navigation()));
+                            if (formkey.currentState!.validate()) {
+                              user();
+                            }
+                            // var username;
+                            // if (formkey.currentState!.validate()) {
+                            //   Navigator.of(context).push(MaterialPageRoute(
+                            //       builder: (context) => Navigation(
+                            //             name: username.toString(),
+                            //           )));
+                            // } else {}
                           },
+                          // onPressed: () {
+                          //   Navigator.of(context).push(MaterialPageRoute(
+                          //       builder: (context) => Navigation()));
+                          // },
                           child: const Text(
                             'Register',
                             style: TextStyle(
@@ -452,54 +536,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  user() async {
+    // var jsonResponse;
+    var data = {
+      'email': email.text,
+      'first_name': firstname.text,
+      'last_name': lastname.text,
+      'password': pass.text,
+      // 'phone': phone.text
+    };
+    print(data);
+    // var url = 'http://192.168.29.233/laravel/childerns/api/register';
+    //var url = api_url + 'register';
+    var url = register;
+    var urlparse = Uri.parse(url);
+    var body = json.encode(data);
+
+    var response = await http.post(
+      urlparse,
+      body: body,
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+    );
+
+    print(response.body);
+    print(response.statusCode);
+    var response_data = json.decode(response.body.toString());
+    print(response_data);
+    if (response.statusCode == 200) {
+      final session = await SharedPreferences.getInstance();
+
+      await session.setInt('user_id', response_data['user_id']);
+      print(response_data['user_id']);
+      print(response_data['email']);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Navigation(
+                    name: firstname.text,
+                  )));
+      toastInfo(mesg: response_data['message']);
+      print('Sucessfull');
+    } else {
+      toastInfo(mesg: response_data['message']);
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text(response_data['message']),
+      //   backgroundColor: Colors.red.shade300,
+      // ));
+      print('Error');
+    }
+  }
 }
-  // user() async {
-  //   var jsonResponse;
-  //   var data = {
-  //     'email': email.text,
-  //     'first_name': name.text,
-  //     'password': pass.text,
-  //   };
-  //   print(data);
-  //   // var url = 'http://192.168.29.242:8000/api/register';
-  //   // var url = api_url + 'register';
-  //   var url = register;
-  //   var urlparse = Uri.parse(url);
-  //   var body = json.encode(data);
-
-  //   var response = await http.post(
-  //     urlparse,
-  //     body: body,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "accept": "application/json",
-  //       "Access-Control-Allow-Origin": "*"
-  //     },
-  //   );
-
-  //   print(response.body);
-  //   print(response.statusCode);
-  //   var response_data = json.decode(response.body.toString());
-  //   print(response_data);
-  //   if (response.statusCode == 200) {
-  //     final session = await SharedPreferences.getInstance();
-
-  //     await session.setInt('user_id', response_data['user_id']);
-  //     print(response_data['user_id']);
-  //     print(response_data['email']);
-  //     Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //             builder: (context) => Navigation(
-  //                   name: name.text,
-  //                 )));
-  //     print('Sucessfull');
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       content: Text(response_data['message']),
-  //       backgroundColor: Colors.red.shade300,
-  //     ));
-  //     print('Error');
-  //   }
-  // }
-

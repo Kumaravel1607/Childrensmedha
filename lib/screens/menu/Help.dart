@@ -75,7 +75,7 @@ class _HelpPageState extends State<HelpPage> {
               elevation: 4,
               child: ListTile(
                 leading: Icon(Icons.schedule),
-                title: text16("email", dash),
+                title: text16("Working hour", dash),
                 trailing: text16('MON - FRI, 10AM - 9PM', black),
               ),
             )

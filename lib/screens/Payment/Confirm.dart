@@ -142,8 +142,10 @@ class _ConfirmState extends State<Confirm> {
                   minimumSize: const Size.fromHeight(44),
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Navigation()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Navigation(
+                            name: '',
+                          )));
                 },
                 child: const Text(
                   'Back to Home',

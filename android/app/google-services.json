@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "241555539294",
+    "project_id": "childrensmedha",
+    "storage_bucket": "childrensmedha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241555539294:android:a38c9b32d6d2eed1e33bcf",
+        "android_client_info": {
+          "package_name": "com.example.cmedha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdS2e2T0ZuTFzrGJvt5mtsS2Y7KG4Iphw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

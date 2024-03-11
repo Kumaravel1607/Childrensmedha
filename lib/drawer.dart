@@ -1,19 +1,19 @@
 import 'package:cmedha/Login.dart';
-import 'package:cmedha/Navi_Screen/Session.dart';
+import 'package:cmedha/screens/menu/Session.dart';
 import 'package:cmedha/screens/Constant/color.dart';
 import 'package:cmedha/screens/menu/About.dart';
 import 'package:cmedha/screens/menu/Changepassword.dart';
-import 'package:cmedha/screens/menu/ExamAttempts.dart';
 import 'package:cmedha/screens/menu/FAQ.dart';
 import 'package:cmedha/screens/menu/Help.dart';
-import 'package:cmedha/screens/menu/Logout.dart';
 import 'package:cmedha/screens/menu/Mycourse.dart';
-import 'package:cmedha/screens/menu/Purchase.dart';
+import 'package:cmedha/screens/menu/Feedback.dart';
 import 'package:cmedha/screens/menu/Terms.dart';
 import 'package:cmedha/screens/menu/cartpage.dart';
+import 'package:cmedha/screens/menu/schedule.dart';
 import 'package:cmedha/screens/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -24,6 +24,24 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  @override
+  void initState() {
+    super.initState();
+    userdata();
+  }
+
+  String? Email;
+  String? Username;
+  userdata() async {
+    SharedPreferences session = await SharedPreferences.getInstance();
+    var username = session.getString('first_name');
+    var email = session.getString('email');
+    setState(() {
+      Username = username;
+      Email = email;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -53,12 +71,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            const CircleAvatar(
-                                radius: 35,
-                                backgroundImage: NetworkImage(
-                                    "https://randomuser.me/api/portraits/men/28.jpg")),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pop(context);
@@ -78,15 +92,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        const Text(
-                          "Kums",
+                        Text(
+                          Username.toString(),
+                          // "Kums",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: white),
                         ),
-                        const Text(
-                          "kumsjo29@gmail.com",
+                        Text(
+                          Email.toString(),
+                          //  "kumsjo29@gmail.com",
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -125,6 +141,35 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           width: 15,
                         ),
                         text16('My Course', black)
+                      ],
+                    ),
+                  )),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SchedulesWidget()));
+              },
+              child: Card(
+                  elevation: 5,
+                  color: const Color.fromARGB(255, 244, 248, 253),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: white,
+                          child: SvgPicture.asset(
+                            'assets/images/group.svg',
+                            height: 25,
+                            color: black,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        text16('Schedules', black)
                       ],
                     ),
                   )),
@@ -363,7 +408,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             ),
             GestureDetector(
               onTap: () {
-                logOut();
+                LogoutDialog(context);
               },
               child: Card(
                   elevation: 5,
@@ -395,13 +440,87 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 
-  showAlertDialog(BuildContext context) {
+  // showAlertDialog(BuildContext context) {
+  //   // set up the buttons
+  //   Widget cancelButton = TextButton(
+  //     child: Text(
+  //       "Cancel",
+  //       style:
+  //           TextStyle(color: Blue, fontSize: 16, fontWeight: FontWeight.w600),
+  //     ),
+  //     onPressed: () {
+  //       Navigator.of(context, rootNavigator: true).pop();
+  //       // Navigator.pop(context);
+  //       //Navigator.of(context).pop();
+  //       // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+  //       //   MaterialPageRoute(
+  //       //     builder: (BuildContext context) {
+  //       //       return DashBoard_Screen();
+  //       //     },
+  //       //   ),
+  //       //   (_) => false,
+  //       // );
+  //     },
+  //   );
+  //   Widget continueButton = TextButton(
+  //     child: Text(
+  //       "Logout",
+  //       style:
+  //           TextStyle(color: Blue, fontSize: 16, fontWeight: FontWeight.w600),
+  //     ),
+  //     onPressed: () async {
+  //       Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+  //         MaterialPageRoute(
+  //           builder: (BuildContext context) {
+  //             return LoginScreen();
+  //           },
+  //         ),
+  //         (_) => false,
+  //       );
+  //     },
+  //   );
+  //   // set up the AlertDialog
+  //   AlertDialog alert = AlertDialog(
+  //     title: Text(
+  //       "Logout",
+  //       style: TextStyle(
+  //           fontFamily: 'Poppins',
+  //           color: black,
+  //           fontSize: 20,
+  //           fontWeight: FontWeight.w700),
+  //     ),
+  //     content: Text(
+  //       "Do you Really want to logout?",
+  //       style: TextStyle(
+  //           fontFamily: 'Poppins',
+  //           color: black,
+  //           fontSize: 16,
+  //           fontWeight: FontWeight.w500),
+  //     ),
+  //     actions: [
+  //       cancelButton,
+  //       continueButton,
+  //     ],
+  //   );
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
+
+  LogoutDialog(BuildContext context) {
     // set up the buttons
     Widget cancelButton = TextButton(
       child: Text(
         "Cancel",
-        style:
-            TextStyle(color: Blue, fontSize: 16, fontWeight: FontWeight.w600),
+        style: TextStyle(
+            fontFamily: 'Poppins',
+            color: Blue,
+            fontSize: 16,
+            fontWeight: FontWeight.w600),
       ),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
@@ -424,6 +543,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             TextStyle(color: Blue, fontSize: 16, fontWeight: FontWeight.w600),
       ),
       onPressed: () async {
+        // Obtain shared preferences.
+        final session = await SharedPreferences.getInstance();
+        // Remove data for the 'counter' key.
+        await session.remove('email');
+        await session.remove('user_id');
+
         Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (BuildContext context) {
@@ -438,19 +563,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
     AlertDialog alert = AlertDialog(
       title: Text(
         "Logout",
-        style: TextStyle(
-            fontFamily: 'Poppins',
-            color: black,
-            fontSize: 20,
-            fontWeight: FontWeight.w700),
+        style:
+            TextStyle(color: black, fontSize: 20, fontWeight: FontWeight.w700),
       ),
       content: Text(
         "Do you Really want to logout?",
-        style: TextStyle(
-            fontFamily: 'Poppins',
-            color: black,
-            fontSize: 16,
-            fontWeight: FontWeight.w500),
+        style:
+            TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w500),
       ),
       actions: [
         cancelButton,

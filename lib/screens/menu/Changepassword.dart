@@ -1,5 +1,13 @@
+import 'dart:convert';
+
+import 'package:cmedha/Api/Api.dart';
+import 'package:cmedha/Navigation.dart';
 import 'package:cmedha/screens/Constant/color.dart';
+import 'package:cmedha/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({Key? key}) : super(key: key);
@@ -287,7 +295,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                           minimumSize: const Size.fromHeight(44),
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          newpassword();
+                          // Navigator.pop(context);
                           // setState(() {
                           //   if (formkey.currentState!.validate()) {
                           //     isloading = true;
@@ -386,51 +395,51 @@ class _ChangePasswordState extends State<ChangePassword> {
         )));
   }
 
-  // void newpassword() async {
-  //   SharedPreferences session = await SharedPreferences.getInstance();
-  //   // String? token = await FirebaseMessaging.instance.getToken();
-  //   var first_name = session.getString("first_name");
-  //   var token = session.getString('token');
-  //   var user_id = session.getInt('user_id');
-  //   print('token :' '$token');
-  //   var url = change_password;
-  //   var data = {
-  //     "user_id": user_id.toString(),
-  //     "old_password": old.text,
-  //     "new_password": newpass.text,
-  //     "confirm_password": confirm.text,
-  //     "app_key": token,
-  //   };
-  //   print(data);
+  void newpassword() async {
+    SharedPreferences session = await SharedPreferences.getInstance();
+    // String? token = await FirebaseMessaging.instance.getToken();
+    var first_name = session.getString("first_name");
+    var token = session.getString('token');
+    var user_id = session.getInt('user_id');
+    print('token :' '$token');
+    var url = change_pswd;
+    var data = {
+      "user_id": user_id.toString(),
+      "old_password": old.text,
+      "new_password": newpass.text,
+      "confirm_password": confirm.text,
+      "app_key": token,
+    };
+    print(data);
 
-  //   var body = json.encode(data);
-  //   var urlparse = Uri.parse(url);
+    var body = json.encode(data);
+    var urlparse = Uri.parse(url);
 
-  //   Response response = await http.post(urlparse, body: data, headers: {
-  //     'Accept': 'application/json',
-  //     'Authorization': 'Bearer $token',
-  //   });
-  //   print(urlparse);
-  //   var response_data = json.decode(response.body.toString());
-  //   print(response_data);
-  //   if (response.statusCode == 200) {
-  //     // Navigator.of(context).pushAndRemoveUntil(
-  //     //     MaterialPageRoute(
-  //     //         builder: (BuildContext context) => History_Screen()),
-  //     //     (Route<dynamic> route) => false);
-  //     Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-  //       MaterialPageRoute(
-  //         builder: (BuildContext context) {
-  //           return Navigation(
-  //             name: first_name.toString(),
-  //           );
-  //         },
-  //       ),
-  //       (_) => false,
-  //     );
-  //     toastInfo(mesg: response_data['message'].toString());
-  //   } else {
-  //     toastInfo(mesg: response_data['message'].toString());
-  //   }
-  // }
+    Response response = await http.post(urlparse, body: data, headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    print(urlparse);
+    var response_data = json.decode(response.body.toString());
+    print(response_data);
+    if (response.statusCode == 200) {
+      // Navigator.of(context).pushAndRemoveUntil(
+      //     MaterialPageRoute(
+      //         builder: (BuildContext context) => History_Screen()),
+      //     (Route<dynamic> route) => false);
+      Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (BuildContext context) {
+            return Navigation(
+              name: first_name.toString(),
+            );
+          },
+        ),
+        (_) => false,
+      );
+      toastInfo(mesg: response_data['message'].toString());
+    } else {
+      toastInfo(mesg: response_data['message'].toString());
+    }
+  }
 }

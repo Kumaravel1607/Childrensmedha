@@ -1,3 +1,6 @@
+import 'package:cmedha/Api/Api.dart';
+import 'package:cmedha/Api/Api_services/Remote_services.dart';
+import 'package:cmedha/Models/Terms_model.dart';
 import 'package:cmedha/screens/Constant/color.dart';
 import 'package:cmedha/screens/widget.dart';
 import 'package:flutter/material.dart';
@@ -19,20 +22,37 @@ class _TermsPageState extends State<TermsPage> {
   @override
   void initState() {
     super.initState();
-    getpage();
+    getPage();
+    //_terms();
   }
 
-  Future<String> getpage() async {
-    var url = "https://varmalaa.com/api/Demo/terms";
+  Future<String> getPage() async {
+    var url = terms; // Assuming terms is a valid URL
     print(url);
-    var response = await http.get(Uri.parse(url));
-    var page = (json.decode(response.body));
 
-    setState(() {
-      pagecontent = page['page_content'];
-    });
-    isloading = false;
-    return "Success";
+    try {
+      var response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        var page = json.decode(response.body);
+
+        setState(() {
+          pagecontent = page['terms']['full_description'].toString();
+          //print(pagecontent);
+        });
+
+        isloading = false;
+        return "Success";
+      } else {
+        // Handle the error if the response status code is not 200
+        print("Error: ${response.statusCode}");
+        return "Error";
+      }
+    } catch (e) {
+      // Handle exceptions that may occur during the HTTP request
+      print("Exception: $e");
+      return "Error";
+    }
   }
 
   @override
@@ -66,4 +86,21 @@ class _TermsPageState extends State<TermsPage> {
               ))),
     );
   }
+
+  ///Terms Api
+
+  // List<Terms> data = [];
+
+  // _terms() async {
+  //   print("--------");
+  //   RemoteService.TermsData().then((result) {
+  //     setState(() {
+
+  //       data = result;
+
+  //     pagecontent = data[0].fullDescription;
+
+  //     });
+  //   });
+  // }
 }
