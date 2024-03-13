@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cmedha/Navi_Screen/Home/Cartcount.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:cmedha/drawer.dart';
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     fetchData();
+    CartIcon();
     tabController = TabController(length: 2, vsync: this);
     _scrollController = ScrollController();
   }
@@ -74,31 +76,37 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                text20('Hi, ${widget.user_name}', Colors.black),
-                text16("Lets Start Learning", Colors.black),
+                text20('Hi, ${widget.user_name}', white),
+                text16("Lets Start Learning", white),
               ],
             ),
           ],
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              _scaffoldKey.currentState?.openEndDrawer();
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 15),
-              child: Container(
-                height: 35,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey.shade200,
-                ),
-                child: const Center(
-                  child: Icon(Icons.sort, size: 35),
+          Row(
+            children: [
+              CartIcon(),
+              SizedBox(width: 10),
+              GestureDetector(
+                onTap: () {
+                  _scaffoldKey.currentState?.openEndDrawer();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: Container(
+                    height: 35,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey.shade200,
+                    ),
+                    child: const Center(
+                      child: Icon(Icons.sort, size: 35),
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           )
         ],
       ),

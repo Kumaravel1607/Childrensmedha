@@ -88,7 +88,7 @@ class _NavigationState extends State<Navigation>
                     'assets/images/house1.svg',
                     width: 30,
                     height: 30,
-                    color: black,
+                    color: white,
                   ),
                 ),
                 Padding(
@@ -97,7 +97,7 @@ class _NavigationState extends State<Navigation>
                     'assets/images/book.svg',
                     width: 10,
                     height: 30,
-                    color: black,
+                    color: white,
                   ),
                 ),
                 Padding(
@@ -106,7 +106,7 @@ class _NavigationState extends State<Navigation>
                     'assets/images/bookmarks.svg',
                     width: 10,
                     height: 10,
-                    color: black,
+                    color: white,
                   ),
                 ),
                 Padding(
@@ -114,7 +114,7 @@ class _NavigationState extends State<Navigation>
                   child: SvgPicture.asset(
                     'assets/images/exam.svg',
                     width: 10,
-                    color: black,
+                    color: white,
                   ),
                 ),
               ],
@@ -124,7 +124,7 @@ class _NavigationState extends State<Navigation>
                   children: [
                     SvgPicture.asset(
                       'assets/images/house1.svg',
-                      color: black,
+                      color: white,
                       height: 35,
                     ),
                     const Text(
@@ -140,7 +140,7 @@ class _NavigationState extends State<Navigation>
                       'assets/images/book.svg',
                       height: 25,
                       width: 20,
-                      color: black,
+                      color: white,
                     ),
                     const Text(
                       'Course',
@@ -154,7 +154,7 @@ class _NavigationState extends State<Navigation>
                     SvgPicture.asset(
                       'assets/images/bookmarks.svg',
                       height: 20,
-                      color: black,
+                      color: white,
                     ),
                     const Text(
                       'Resource',
@@ -168,7 +168,7 @@ class _NavigationState extends State<Navigation>
                     SvgPicture.asset(
                       'assets/images/exam.svg',
                       height: 25,
-                      color: black,
+                      color: white,
                     ),
                     const Text(
                       'Exams',

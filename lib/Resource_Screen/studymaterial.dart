@@ -96,7 +96,7 @@ class _ResourceStudyState extends State<ResourceStudy> {
           backgroundColor: Blue,
           automaticallyImplyLeading: false,
           shadowColor: black,
-          title: text20('Pdf Resouces', white),
+          title: text20('Pdf Resources', white),
           elevation: 3,
           leading: GestureDetector(
             child: const Icon(

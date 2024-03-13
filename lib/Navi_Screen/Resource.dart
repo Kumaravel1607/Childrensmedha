@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:cmedha/Resource_Screen/Video.dart';
 import 'package:cmedha/Resource_Screen/studymaterial.dart';
+import 'package:cmedha/Resource_Screen/test.dart';
 import 'package:cmedha/screens/Constant/color.dart';
 import 'package:cmedha/screens/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -303,16 +305,25 @@ class _ResourceScreenState extends State<ResourceScreen> {
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        height: 45,
-                                        width: double.infinity,
-                                        child: Card(
-                                          elevation: 4,
-                                          //color: greylite,
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child:
-                                                text20("Practice Test", black),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MCQTestPage()));
+                                        },
+                                        child: Container(
+                                          height: 45,
+                                          width: double.infinity,
+                                          child: Card(
+                                            elevation: 4,
+                                            //color: greylite,
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: text20(
+                                                  "Practice Test", black),
+                                            ),
                                           ),
                                         ),
                                       ),
